@@ -1,0 +1,122 @@
+MBD Speed Control – Project Documentation
+1. Introduction
+
+The MBD Speed Control project aims to develop a vehicle speed control system using Model-Based Design (MBD). The system handles different situations: Normal driving, Alert, and Braking.
+
+1.1 Objectives
+
+Maintain vehicle speed within defined limits.
+
+Detect situations requiring a driver alert.
+
+Activate automatic braking in critical overspeed situations.
+
+Generate C code automatically from the Simulink/Stateflow model.
+
+2. System Architecture
+2.1 Simulink Blocks
+
+Input Block: Vehicle speed sensors, user commands.
+
+Control Logic: Stateflow chart managing Normal, Alert, and Braking states.
+
+Output Block: Motor commands, alert signals, brake activation.
+
+2.2 System States
+State	Description
+Normal	Vehicle operates at normal speed with no alert.
+Alert	Speed approaches critical limit; visual or auditory alert triggered.
+Braking	Critical overspeed; automatic braking is activated.
+3. Functionality Description
+3.1 Normal Driving
+
+Vehicle operates normally.
+
+Speed is regulated according to the setpoint.
+
+Sensors continuously monitor speed and environment.
+
+3.2 Alert
+
+Triggered when speed approaches a critical limit.
+
+Generates a driver alert interface notification.
+
+Prepares the system for potential automatic braking.
+
+3.3 Braking
+
+Triggered if speed exceeds the critical limit.
+
+Activates automatic braking via brake system.
+
+Can only reset after returning to a safe state.
+
+4. Stateflow Diagram
+
+Stateflow Chart:
+
+States: Normal → Alert → Braking
+
+Transitions based on speed thresholds.
+
+Actions defined for each state (alert,  braking).
+
+5. Generated C Code
+
+Automatically generated from the Simulink model.
+
+Typical structure:
+
+initialize(): Initializes the system and variables.
+
+step(): Executes control at each cycle.
+
+terminate(): Releases resources.
+
+Generated files:
+
+SpeedControl.c
+
+SpeedControl.h
+
+SpeedControl_ert_rtw/ 
+
+6. Testing and Validation
+
+Unit testing for each chart state.
+
+Simulation under normal and extreme conditions.
+
+Verification of state transitions (Normal → Alert → Braking).
+
+Comparison of simulated results with expected behavior.
+
+7. System Requirements
+7.1 High-Level Requirements (HLR)
+
+Define what the system must achieve at a global level.
+
+Examples:
+
+The system shall maintain vehicle speed within defined limits.
+
+The system shall alert the driver if the speed approaches a critical threshold.
+
+The system shall activate automatic braking in case of dangerous overspeed.
+
+7.2 Low-Level Requirements (LLR)
+
+Define how each HLR will be implemented technically.
+
+Examples:
+
+The PID controller adjusts the motor command every 10 ms to keep speed within ±1 km/h of the setpoint.
+
+An interface notification is activated when speed exceeds 90% of the limit.
+
+The braking signal is automatically sent to the motor module when speed exceeds the critical threshold.
+
+8. Conclusion
+
+The MBD Speed Control project demonstrates the efficiency of Model-Based Design for vehicle speed management with integrated safety. Automatic transitions between Normal, Alert, and Braking states ensure a reliable and safe control system.
